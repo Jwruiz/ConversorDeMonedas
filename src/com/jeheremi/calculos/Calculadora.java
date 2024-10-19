@@ -8,15 +8,23 @@ import java.util.List;
 import java.util.Map;
 
 public class Calculadora {
-  //  private Double base = 1.0;
-  public int opcion = 1;
-  public List<Map.Entry<String, Double>> listaSeleccionada;
 
-    public Calculadora(List<Map.Entry<String, Double>> listaSeleccionada, int opcion) {
 
-        this.opcion = opcion;
-        this.listaSeleccionada = listaSeleccionada;
-        System.out.println(listaSeleccionada);
+
+
+    public List<Map.Entry<String, Double>> Calculos() {
+
+        ConsultaApi misCalculos = new ConsultaApi();
+
+        List<Map.Entry<String, Double>> listaConversiones = misCalculos.obtenerConversiones();
+        // imprimo la lista como test
+        //System.out.println(listaConversiones);
+
+        return listaConversiones;
 
     }
+
+
+
+
 }

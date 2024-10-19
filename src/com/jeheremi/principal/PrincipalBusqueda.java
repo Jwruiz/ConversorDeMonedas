@@ -9,6 +9,10 @@ import java.util.Scanner;
 public class PrincipalBusqueda {
     public static void main(String[] args) {
         ConsultaApi consultaApi = new ConsultaApi();
+        System.out.println(consultaApi.obtenerConversiones());
+        Calculadora misCalulos2 = new Calculadora();
+        System.out.println(misCalulos2.Calculos());
+
 
 
         Scanner lectura = new Scanner(System.in);

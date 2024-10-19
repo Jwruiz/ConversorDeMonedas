@@ -17,53 +17,44 @@ public class ConsultaApi {
 
     String direccion = "https://v6.exchangerate-api.com/v6/2a657fdaa2391a29aed84189/latest/USD";
 
-    public  ConsultaApi() {
-        // List<Map.Entry<String, Double>> listaSeleccionada = new ArrayList<>();
-     try {
+    public List<Map.Entry<String, Double>> obtenerConversiones() {
+        List<Map.Entry<String, Double>> listaSeleccionada = new ArrayList<>();
 
-         HttpClient client = HttpClient.newHttpClient();
-         HttpRequest request = HttpRequest.newBuilder()
-                 .uri(URI.create(direccion))
-                 .build();
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(direccion))
+                    .build();
 
-         HttpResponse<String> response = client
-                 .send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
 
-         String json = response.body();
+            String json = response.body();
 
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create();
+            MonedaDto miMonedaDto = gson.fromJson(json, MonedaDto.class);
+            Map<String, Double> conversionRates = miMonedaDto.conversion_rates();
 
-         Gson gson = new GsonBuilder()
+            String[] monedasASeleccionar = {"USD", "EUR", "VES", "ARS", "CNY"};
+            for (String moneda : monedasASeleccionar) {
+                if (conversionRates.containsKey(moneda)) {
+                    listaSeleccionada.add(Map.entry(moneda, conversionRates.get(moneda)));
+                }
+            }
 
-                 .setPrettyPrinting()
-                 .create();
-         MonedaDto miMonedaDto = gson.fromJson(json, MonedaDto.class);
-         Map<String, Double> conversionRates = miMonedaDto.conversion_rates();
-       //  System.out.println("Tasas de conversión: " + conversionRates);
+            System.out.println("Estás consultando la API: Exchangerate");
 
-         List<Map.Entry<String, Double>> listaSeleccionada = new ArrayList<>();
-         String[] monedasASeleccionar = {"USD", "EUR", "VES", "ARS", "CNY"};
-         for (String moneda : monedasASeleccionar) {
-             if (conversionRates.containsKey(moneda)) {
-                 listaSeleccionada.add(Map.entry(moneda, conversionRates.get(moneda)));
-             }
-         }
+        } catch (IOException e) {
+            System.out.println("Error de red: " + e.getMessage());
+        } catch (InterruptedException e) {
+            System.out.println("La solicitud fue interrumpida: " + e.getMessage());
+            Thread.currentThread().interrupt();  // Restablecer estado de interrupción
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+        }
 
-         // Imprimir los elementos seleccionados
-       //  System.out.println("Elementos seleccionados: " + listaSeleccionada);
-
-
-
-
-         System.out.println("estas consultando la api: Exchangerate");
-       //  System.out.println(miMonedaDto.conversion_rates());
-     } catch (IOException e) {
-         System.out.println("Error de red: " + e.getMessage());
-     } catch (InterruptedException e) {
-         System.out.println("La solicitud fue interrumpida: " + e.getMessage());
-         Thread.currentThread().interrupt();  // Restablecer estado de interrupción
-     } catch (Exception e) {
-         System.out.println("Ocurrió un error inesperado: " + e.getMessage());
-     }
-
- }
+        return listaSeleccionada;
+    }
 }
