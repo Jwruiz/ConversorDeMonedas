@@ -1,8 +1,10 @@
 package com.jeheremi.principal;
 
 import com.jeheremi.calculos.Calculadora;
+import com.jeheremi.monedas.Moneda;
 import com.jeheremi.util.ConsultaApi;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -11,7 +13,7 @@ public class PrincipalBusqueda {
         ConsultaApi consultaApi = new ConsultaApi();
         System.out.println(consultaApi.obtenerConversiones());
         Calculadora misCalulos2 = new Calculadora();
-        System.out.println(misCalulos2.Calculos());
+      //  System.out.println(misCalulos2.Calculos());
 
 
 
@@ -37,8 +39,16 @@ public class PrincipalBusqueda {
             switch (opcion) {
                 case 1:
                     System.out.println("Has seleccionado la Opción 1");
+                    Calculadora paraDolar = new Calculadora();
+                    System.out.println("desde el main");
+                    List<Map.Entry<String, Double>> conversiones = Moneda.monedasFinal();
+                    paraDolar.test(conversiones);
+
+                   /// System.out.println(paraDolar.test());
+
                     // Aquí iría el código para la opción 1
                     //Calculadora calculo = new Calculadora(<listaSeleccionada>, opcion)
+
                     System.out.println();
                     break;
                 case 2:
