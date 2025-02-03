@@ -32,7 +32,10 @@ Tener Maven instalado.
 
 Este proyecto fue desarrollado como parte del curso de Java Backend de Alura Latam.
 
-Estructura del Proyecto:
+### Estructura del Proyecto: fase inicial
 ![Currency Converter](./assets/arquitectura.png)
+
+### Estructura final del proyecto y funcionamiento
+##### https://youtu.be/Ziqm7yitaT8
 
 Desarrollado por Jeheremi Ruiz
