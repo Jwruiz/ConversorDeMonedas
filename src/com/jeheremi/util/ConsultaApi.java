@@ -44,7 +44,7 @@ public class ConsultaApi {
                 }
             }
 
-            System.out.println("Estás consultando la API: Exchangerate");
+           // System.out.println("Estás consultando la API: Exchangerate");
 
         } catch (IOException e) {
             System.out.println("Error de red: " + e.getMessage());
